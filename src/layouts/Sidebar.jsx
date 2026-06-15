@@ -8,19 +8,20 @@ import { Link } from "react-router-dom";
 
 export default function Sidebar() {
     return (
-        <div id="sidebar" className="flex min-h-screen w-90 flex-col bg-white p-10 shadow-lg">
+        <div id="sidebar" className="flex min-h-screen w-90 flex-col bg-base-100 p-10 shadow-lg transition-colors duration-200">
+            
             {/* Logo */}
             <div id="sidebar-logo" className="flex flex-col">
                 <span 
                     id="logo-title" 
-                    className="font-poppins font-[1000] text-[48px] text-gray-900"
+                    className="font-poppins font-[1000] text-[48px] text-base-content"
                 >
-                    Sedap<b className="text-green-500">.</b>
+                    Sedap<b className="text-primary">.</b>
                 </span>
 
                 <span 
                     id="logo-subtitle" 
-                    className="text-gray-400 font-semibold"
+                    className="text-base-content/50 font-semibold text-sm"
                 >
                     Modern Admin Dashboard
                 </span>
@@ -28,35 +29,34 @@ export default function Sidebar() {
 
             {/* List Menu */}
             <div id="sidebar-menu" className="mt-10">
-                <ul id="menu-list" className="space-y-3">
+                <ul id="menu-list" className="menu p-0 [&_li>*]:p-4 [&_li>*]:rounded-xl space-y-2 text-base-content font-medium">
                     <li>
-                        <Link id="menu-1" to="/" className="hover:text-hijau flex cursor-pointer items-center rounded-xl p-4 font-medium text-gray-600 hover:bg-green-200 hover:font-extrabold">
-                            <MdSpaceDashboard className="mr-4 text-xl"/>
+                        <Link id="menu-1" to="/" className="hover:bg-primary/20 active:bg-primary active:text-primary-content">
+                            <MdSpaceDashboard className="text-xl"/>
                             Dashboard
                         </Link>
                     </li>
                     <li>
-                        <Link id="menu-2" to="/Orders" className="hover:text-hijau flex cursor-pointer items-center rounded-xl p-4 font-medium text-gray-600 hover:bg-green-200 hover:font-extrabold">
-                            <CgBorderStyleDashed className="mr-4 text-xl" />
+                        <Link id="menu-2" to="/Orders" className="hover:bg-primary/20 active:bg-primary active:text-primary-content">
+                            <CgBorderStyleDashed className="text-xl" />
                             Orders
                         </Link>
                     </li>
                     <li>
-                        <Link id="menu-3" to="/Customers" className="hover:text-hijau flex cursor-pointer items-center rounded-xl p-4 font-medium text-gray-600 hover:bg-green-200 hover:font-extrabold">
-                            <FcCustomerSupport className="mr-4 text-xl" />
+                        <Link id="menu-3" to="/Customers" className="hover:bg-primary/20 active:bg-primary active:text-primary-content">
+                            <FcCustomerSupport className="text-xl" />
                             Customers
                         </Link>
                     </li>
                     <li>
-                        <Link id="menu-4" to="/Products" className="hover:text-hijau flex cursor-pointer items-center rounded-xl p-4 font-medium text-gray-600 hover:bg-green-200 hover:font-extrabold">
-                            <AiFillCustomerService className="mr-4 text-xl" />
+                        <Link id="menu-4" to="/Products" className="hover:bg-primary/20 active:bg-primary active:text-primary-content">
+                            <AiFillCustomerService className="text-xl" />
                             Products
                         </Link>
                     </li>
-                    {/* Menu Notes Baru */}
                     <li>
-                        <Link id="menu-5" to="/Notes" className="hover:text-hijau flex cursor-pointer items-center rounded-xl p-4 font-medium text-gray-600 hover:bg-green-200 hover:font-extrabold">
-                            <AiFillFolderAdd className="mr-4 text-xl text-yellow-500" />
+                        <Link id="menu-5" to="/Notes" className="hover:bg-primary/20 active:bg-primary active:text-primary-content">
+                            <AiFillFolderAdd className="text-xl text-warning" />
                             Notes
                         </Link>
                     </li>
@@ -65,20 +65,22 @@ export default function Sidebar() {
 
             {/* Footer */}
             <div id="sidebar-footer" className="mt-auto">
-                <div id="footer-card" className="bg-hijau px-4 py-2 rounded-md shadow-lg mb-10 flex items-center">
-                    <div id="footer-text" className="text-white text-sm">
-                        <span>Please organize your menus through button below!</span>
-                        <div id="add-menu-button" className="flex justify-center items-center p-2 mt-3 bg-white rounded-md space-x-2">
-                            <span className="text-gray-600 flex items-center">
-                                <BiAddToQueue className="mr-1" />
-                                Add Menus
-                            </span>
-                        </div>
+                <div id="footer-card" className="bg-primary text-primary-content px-4 py-4 rounded-xl shadow-md mb-6 flex items-center justify-between gap-2">
+                    <div id="footer-text" className="text-sm">
+                        <p className="font-medium leading-tight">Please organize your menus through button below!</p>
+                        
+                        <button id="add-menu-button" className="btn btn-sm w-full mt-3 flex items-center justify-center gap-1 bg-white border-none text-gray-700 hover:bg-gray-100">
+                            <BiAddToQueue className="text-lg" />
+                            Add Menus
+                        </button>
                     </div>
-                    <img id="footer-avatar" className="w-8 h-8 rounded-full" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Syifa" />
+                    <img id="footer-avatar" className="w-10 h-10 rounded-full border-2 border-white/50" src="https://api.dicebear.com/7.x/avataaars/svg?seed=Syifa" alt="avatar" />
                 </div>
-                <span id="footer-brand" className="font-bold text-gray-400">Sedap Restaurant Admin Dashboard</span>
-                <p id="footer-copyright" className="font-light text-gray-400">&copy; 2025 All Right Reserved</p>
+                
+                <div className="text-xs text-base-content/40 font-medium">
+                    <span id="footer-brand" className="font-bold block mb-1">Sedap Restaurant Admin Dashboard</span>
+                    <p id="footer-copyright">&copy; 2025 All Right Reserved</p>
+                </div>
             </div>
         </div>
     );

@@ -15,6 +15,7 @@
     src: url('/public/fonts/Poppins-ExtraBold.ttf');
 }
 
+
 @theme {
     --font-barlow: "Barlow", sans-serif;
     --font-poppins: "Poppins", sans-serif;
@@ -30,6 +31,10 @@
     --color-kuning: #f59e0b; 
 }
 
+/** ⬇️ TAMBAHKAN PLUGIN DAISYUI DI SINI ⬇️ **/
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, valentine;
+} 
 body {
     @apply font-barlow;
 }

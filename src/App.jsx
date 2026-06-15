@@ -11,10 +11,10 @@ import ProductDetail from "./pages/ProductDetail";
 import Notes from "./pages/Notes";
 import "./assets/tailwind.css";
 
-
 function App() {
   return (
-    <div id="app-container" className="bg-gray-100 min-h-screen flex">
+    /* 🛠️ PERUBAHAN DI SINI: Mengganti bg-gray-100 menjadi bg-base-200 dan menambahkan text-base-content */
+    <div id="app-container" className="bg-base-200 text-base-content min-h-screen flex transition-colors duration-200">
       <div id="layout-wrapper" className="flex flex-row flex-1">
         {/* SIDEBAR */}
         <Sidebar />

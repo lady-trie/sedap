@@ -6,7 +6,6 @@ const Orders = () => {
     { id: 'ORD-002', customer: 'Rian Apriandi', items: 'Ayam Bakar (1x)', total: 'Rp 32.000', status: 'Processing' },
   ]);
 
-  const [isOpen, setIsOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [currentId, setCurrentId] = useState('');
   const [form, setForm] = useState({ customer: '', items: '', total: '', status: 'Pending' });
@@ -16,14 +15,14 @@ const Orders = () => {
   const openAddModal = () => {
     setForm({ customer: '', items: '', total: '', status: 'Pending' });
     setIsEdit(false);
-    setIsOpen(true);
+    document.getElementById('order_modal').showModal(); // Menggunakan mekanisme modul
   };
 
   const openEditModal = (order) => {
     setForm({ customer: order.customer, items: order.items, total: order.total, status: order.status });
     setCurrentId(order.id);
     setIsEdit(true);
-    setIsOpen(true);
+    document.getElementById('order_modal').showModal(); // Menggunakan mekanisme modul
   };
 
   const handleSubmit = (e) => {
@@ -34,7 +33,7 @@ const Orders = () => {
       const newOrder = { id: `ORD-${Date.now().toString().slice(-3)}`, ...form };
       setOrders([...orders, newOrder]);
     }
-    setIsOpen(false);
+    document.getElementById('order_modal').close(); // Menutup modal setelah submit
   };
 
   const handleDelete = (id) => {
@@ -44,44 +43,48 @@ const Orders = () => {
   return (
     <div className="p-6">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-gray-800">Orders List</h1>
-        <button onClick={openAddModal} className="bg-[#00B074] hover:bg-[#009662] text-white px-4 py-2 rounded-lg font-medium transition">+ Create Order</button>
+        <h1 className="text-2xl font-bold text-base-content">Orders List</h1>
+        {/* Tombol menggunakan class DaisyUI 'btn' */}
+        <button onClick={openAddModal} className="btn bg-[#00B074] hover:bg-[#009662] text-white border-none">+ Create Order</button>
       </div>
 
-      {isOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-xl w-96 shadow-lg">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">{isEdit ? 'Edit Order' : 'Create New Order'}</h2>
-            <form onSubmit={handleSubmit} className="space-y-3">
-              <div>
-                <label className="text-xs font-semibold text-gray-600">Customer Name</label>
-                <input type="text" name="customer" value={form.customer} onChange={handleChange} className="w-full p-2 border border-gray-200 rounded-lg text-sm mt-1 focus:outline-emerald-500" required />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-gray-600">Items</label>
-                <input type="text" name="items" value={form.items} onChange={handleChange} className="w-full p-2 border border-gray-200 rounded-lg text-sm mt-1 focus:outline-emerald-500" placeholder="e.g. Mie Goreng (1x)" required />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-gray-600">Total Amount</label>
-                <input type="text" name="total" value={form.total} onChange={handleChange} className="w-full p-2 border border-gray-200 rounded-lg text-sm mt-1 focus:outline-emerald-500" placeholder="Rp 25.000" required />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-gray-600">Status</label>
-                <select name="status" value={form.status} onChange={handleChange} className="w-full p-2 border border-gray-200 rounded-lg text-sm mt-1 focus:outline-emerald-500">
-                  <option value="Pending">Pending</option>
-                  <option value="Processing">Processing</option>
-                  <option value="Completed">Completed</option>
-                </select>
-              </div>
-              <div className="flex justify-end space-x-2 pt-3">
-                <button type="button" onClick={() => setIsOpen(false)} className="bg-gray-100 text-gray-600 px-4 py-2 rounded-lg text-sm hover:bg-gray-200">Cancel</button>
-                <button type="submit" className="bg-[#00B074] text-white px-4 py-2 rounded-lg text-sm hover:bg-[#009662]">Save</button>
-              </div>
-            </form>
-          </div>
+      {/* 1️⃣ STRUKTUR MODAL DIUBAH MENGIKUTI MODUL PERTEMUAN 13 */}
+      <dialog id="order_modal" className="modal">
+        <div className="modal-box">
+          <h3 className="font-bold text-lg mb-4">{isEdit ? 'Edit Order' : 'Create New Order'}</h3>
+          
+          <form onSubmit={handleSubmit} className="space-y-3">
+            <div>
+              <label className="text-xs font-semibold text-base-content/70">Customer Name</label>
+              <input type="text" name="customer" value={form.customer} onChange={handleChange} className="input input-bordered w-full text-sm mt-1" required />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-base-content/70">Items</label>
+              <input type="text" name="items" value={form.items} onChange={handleChange} className="input input-bordered w-full text-sm mt-1" placeholder="e.g. Mie Goreng (1x)" required />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-base-content/70">Total Amount</label>
+              <input type="text" name="total" value={form.total} onChange={handleChange} className="input input-bordered w-full text-sm mt-1" placeholder="Rp 25.000" required />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-base-content/70">Status</label>
+              <select name="status" value={form.status} onChange={handleChange} className="select select-bordered w-full text-sm mt-1">
+                <option value="Pending">Pending</option>
+                <option value="Processing">Processing</option>
+                <option value="Completed">Completed</option>
+              </select>
+            </div>
+            
+            <div className="modal-action">
+              {/* Form internal dengan method="dialog" otomatis menutup modal saat diklik */}
+              <button type="button" onClick={() => document.getElementById('order_modal').close()} className="btn">Cancel</button>
+              <button type="submit" className="btn bg-[#00B074] hover:bg-[#009662] text-white border-none">Save</button>
+            </div>
+          </form>
         </div>
-      )}
+      </dialog>
 
+      {/* STRUKTUR TABEL */}
       <div className="bg-white rounded-xl shadow-sm overflow-hidden border border-gray-100">
         <table className="w-full text-left border-collapse">
           <thead>
